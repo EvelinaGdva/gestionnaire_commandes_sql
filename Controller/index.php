@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restot</title>
     <link href='../CSS/index.css' rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+<header>
+        <div class="icon-link">
+          <i class="fas fa-sign-in-alt"></i>
+          <a href="../User/login.php"> CONNEXION </a>
+        </div>
+</header>
+
+<body>
 <div class="wrapper">
   <nav class="main-nav">
     <ul>
@@ -41,6 +49,7 @@
       <i class="fas fa-truck fa-4x"></i>
       <p> ASIAN </p> 
     </div>
+  </div>
 
   <footer class="links">
     <div class="web-links">
@@ -53,3 +62,5 @@
     <p> © Restot | 19th March 2024 </p>
   </div>
 </div>
+</body>
+</html>
