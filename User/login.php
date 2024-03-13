@@ -32,8 +32,9 @@ if (isset($_SESSION["user"])) {
 
             $sql = "SELECT * FROM user WHERE username = '$username'";
             $result = $conn -> query($sql);
-            $row = $result->fetch_assoc();
+            $row = $result->fetchall();
             print_r($row);
+            echo $row;
             echo "rrrr";
                         if ($result->num_rows > 0) {
                 $user = $result->fetch_assoc();
