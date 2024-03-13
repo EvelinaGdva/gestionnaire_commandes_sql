@@ -35,7 +35,7 @@ if (isset($_SESSION["user"])) {
             $row = $result->fetchall();
             print_r($row);
             echo $row;
-            echo "rrrr";
+            echo "rrrrr";
                         if ($result->num_rows > 0) {
                 $user = $result->fetch_assoc();
                 if (password_verify($password, $user["password"])) {
