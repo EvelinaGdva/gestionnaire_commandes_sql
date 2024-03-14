@@ -30,13 +30,10 @@ if (isset($_SESSION["user"])) {
             require_once "../Data/database.php";
             $conn = new mysqli($host, $username, $password, $database);
 
-            $sql = "SELECT * FROM user WHERE username = '$username'";
+            $sql = "SELECT * FROM user";
             $result = $conn -> query($sql);
-            $row = $result->fetchall();
-            print_r($row);
-            echo $row;
-            echo "rrrrrr";
-                        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+                     if ($result->num_rows > 0) {
                 $user = $result->fetch_assoc();
                 if (password_verify($password, $user["password"])) {
                     session_start();
