@@ -14,3 +14,5 @@ if (!$conn->set_charset("utf8mb4")) {
     printf("Erreur lors du chargement du jeu de caractères utf8mb4 : %s\n", $conn->error);
     exit();
 }
+
+?>
