@@ -24,7 +24,7 @@ class Client {
 
     public function checkPhoneNb() {
         if(!empty($this->phone_nb)) {
-            // Expression régulière pour vérifier si la chaîne contient exactement 10 chiffre
+            // Expression régulière pour vérifier si la chaîne contient exactement 10 chiffress
             $regexp = '/^\d{10}$/';
             // Vérifie si la chaîne de téléphone correspond au motif
             if(preg_match($regexp, $this->phone_nb)) {
