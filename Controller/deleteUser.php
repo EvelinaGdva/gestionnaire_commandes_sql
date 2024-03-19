@@ -13,17 +13,17 @@
         if($res==true)
         {
             $_SESSION['delete'] = "<div class='success'>User Deleted Successfully.</div>"; // Message de succès
-            header('location:'.URL.'Controller/UserController.php'); // Redirection vers la page de gestion des administrateurs
+            header('location:'.SITEURL.'Controller/UserController.php'); // Redirection vers la page de gestion des administrateurs
         }
         else
         {
             $_SESSION['delete'] = "<div class='error'>Failed to Delete User. Try Again Later.</div>"; // Message d'erreur
-            header('location:'.URL.'Controller/UserController.php'); // Redirection vers la page de gestion des administrateurs
+            header('location:'.SITEURL.'Controller/UserController.php'); // Redirection vers la page de gestion des administrateurs
         }
     }
     else {
         // Si l'identifiant n'est pas défini, afficher un message d'erreur
         $_SESSION['delete'] = "<div class='error'>User ID not provided.</div>";
-        header('location:'.URL.'Controller/UserController.php'); // Redirection vers la page de gestion des administrateurs
+        header('location:'.SITEURL.'Controller/UserController.php'); // Redirection vers la page de gestion des administrateurs
     }
 ?>

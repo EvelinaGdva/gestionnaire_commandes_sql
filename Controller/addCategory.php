@@ -76,7 +76,7 @@
                         if($upload==false)
                         {
                             $_SESSION['upload'] = "<div class='error'>Failed to Upload Image. </div>";
-                            header('location:'.URL.'Controller/addCategory.php');
+                            header('location:'.SITEURL.'Controller/addCategory.php');
                             die();
                         }
 
@@ -88,7 +88,7 @@
                 }
 
                 $sql = "INSERT INTO category SET 
-                    title='$title',
+                    category_name='$category_name',
                     image='$image',
                 ";
 
@@ -97,12 +97,12 @@
                 if($res==true)
                 {
                     $_SESSION['add'] = "<div class='success'>Category Added Successfully.</div>";
-                    header('location:'.URL.'Controller/categoryController.php');
+                    header('location:'.SITEURL.'Controller/categoryController.php');
                 }
                 else
                 {
                     $_SESSION['add'] = "<div class='error'>Failed to Add Category.</div>";
-                    header('location:'.URL.'Controller/category.php');
+                    header('location:'.SITEURL.'Controller/category.php');
                 }
             }
         

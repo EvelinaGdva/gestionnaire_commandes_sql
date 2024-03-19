@@ -1,96 +1,89 @@
-<?php
-session_start();
-if (isset($_POST['send'])) {
 
-  $conn = mysqli_connect("localhost","root","","Restot");
+<?php include('Gestion/menu.php'); ?>
 
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+<div class="main-content">
+    <div class="wrapper">
+        <h1>Dashboard</h1>
+        <br><br>
+        <?php 
+            if(isset($_SESSION['login']))
+            {
+                echo $_SESSION['login'];
+                unset($_SESSION['login']);
+            }
+        ?>
+        <br><br>
 
-  require_once "../Data/database.php";
+        <div class="col-4 text-center">
 
-  $sql = "SELECT * FROM admin WHERE username = '$username' and password = 'password'";
-  
-  $result = mysqli_query($conn,$sql);
-  while($row = mysqli_fetch_array($result))
-  {
-    $id = $row['id'];
-  }
+            <?php 
+               
+                $sql = "SELECT * FROM category";
+               
+                $res = mysqli_query($conn, $sql);
+               
+                $count = mysqli_num_rows($res);
+            ?>
 
-  if (mysqli_num_rows($result)){
-    
-    $_SESSION['id'] = $id;
-    header("location: ")
-  }
-}
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restot</title>
-    <link href='../CSS/index.css' rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-</head>
-<header>
-        <div class="icon-link">
-          <i class="fas fa-sign-in-alt"></i>
-          <a href="../User/login.php"> CONNEXION </a>
+            <h1><?php echo $count; ?></h1>
+            <br />
+            Categories
         </div>
-</header>
 
-<body>
-<div class="wrapper">
-  <nav class="main-nav">
-    <ul>
-      <li>
-        <a href="#"> HOME </a>
-      </li>
-      <li>
-        <a href="#"> ABOUT </a>
-      </li>
-      <li>
-        <a href="#"> SERVICE </a>
-      </li>
-    </ul>
-  </nav>
-  <div class="main-container">
-    <header class="description">
-      <h1> RESTOT </h1>
-      <h2> Vous voulez voir le suivi de commandes de votre restaurant?  <br> </h2> 
-      <a href="#" class="btn"> check out menu </a>
-    </header>
-  </div>
-  <div class="features">
-    <div class="box1">
-      <i class="fas fa-gift fa-4x"></i> 
-      <p>MEXICAN</p> 
-    </div>
-    <div class="box2"> 
-      <i class="fas fa-search fa-4x"></i>
-      <p> ITALIAN </p> 
-    </div>
-    <div class="box3">
-      <i class="fas fa-truck fa-4x"></i>
-      <p> ASIAN </p> 
-    </div>
-  </div>
+        <div class="col-4 text-center">
 
-  <footer class="links">
-    <div class="web-links">
-      <div> <i class="fab fa-facebook"></i> </div>
-      <div> <i class="fab fa-twitter-square"></i> </div>
-      <div> <i class="fab fa-instagram"></i> </div>
-    </div> 
-  </footer>
-  <div class="credit">
-    <p> © Restot | 19th March 2024 </p>
-  </div>
+            <?php 
+                
+                $sql2 = "SELECT * FROM food";
+                
+                $res2 = mysqli_query($conn, $sql2);
+              
+                $count2 = mysqli_num_rows($res2);
+            ?>
+
+            <h1><?php echo $count2; ?></h1>
+            <br />
+            Foods
+        </div>
+
+        <div class="col-4 text-center">
+            
+            <?php 
+                $sql3 = "SELECT * FROM order";
+              
+                $res3 = mysqli_query($conn, $sql3);
+                
+                $count3 = mysqli_num_rows($res3);
+            ?>
+
+            <h1><?php echo $count3; ?></h1>
+            <br />
+            Total Orders
+        </div>
+
+        <div class="col-4 text-center">
+            
+            <?php 
+                
+                $sql4 = "SELECT SUM(total) AS Total FROM tbl_order WHERE status='Delivered'";
+
+                $res4 = mysqli_query($conn, $sql4);
+
+                
+                $row4 = mysqli_fetch_assoc($res4);
+                
+                $total = $row4['Total'];
+
+            ?>
+
+            <h1>$<?php echo $total; ?></h1>
+            <br />
+            Revenue Generated
+        </div>
+
+        <div class="clearfix"></div>
+
+    </div>
 </div>
 </body>
 </html>

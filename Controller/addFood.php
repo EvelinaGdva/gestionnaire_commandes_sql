@@ -104,7 +104,7 @@
                     else
                     {
                         $_SESSION['upload'] = "<div class='error'>Échec du téléchargement de l'image.</div>";
-                        header('location:'.URL.'../Controller/addFood.php');
+                        header('location:'.SITEURL.'../Controller/addFood.php');
                         exit(); // Arrêter l'exécution du script après la redirection
                     }
                 }
@@ -120,12 +120,12 @@
                 if($res2)
                 {
                     $_SESSION['add'] = "<div class='success'>Plat ajouté avec succès.</div>";
-                    header('location:'.URL.'Controller/foodController.php');
+                    header('location:'.SITEURL.'Controller/foodController.php');
                 }
                 else
                 {
                     $_SESSION['add'] = "<div class='error'>Échec de l'ajout du plat.</div>";
-                    header('location:'.URL.'../Controller/foodController.php');
+                    header('location:'.SITEURL.'../Controller/foodController.php');
                 }
             }
         ?>

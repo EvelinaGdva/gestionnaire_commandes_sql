@@ -1,4 +1,4 @@
-<?php include('partials/menu.php'); ?>
+<?php include('Gestion/menu.php'); ?>
 
 <div class="main-content">
     <div class="wrapper">
@@ -22,7 +22,7 @@
                         <th>User</th>
                         <th>Food</th>
                         <th>Price</th>
-                        <th>Qty.</th>
+                        <th>Quantity</th>
                         <th>Total</th>
                         <th>Order Date</th>
                         <th>Status</th>
@@ -42,8 +42,8 @@
                                 $id = $row['id'];
                                 $id_restaurant = $row ['id_restaurant']
                                 $id_user = $row ['id_user'];
-                                $food = $row['food'];
-                                $price = $row['price'];
+                                $food_name = $row['food'];
+                                $price_of_order = $row['price'];
                                 $quantity = $row['quantity'];
                                 $total = $row['total'];
                                 $order_date = $row['order_date'];
@@ -55,8 +55,8 @@
                                         <td><?php echo $sn++; ?>. </td>
                                         <td><?php echo $id_restaurant; ?></td>
                                         <td><?php echo $id_user; ?></td>
-                                        <td><?php echo $food; ?></td>
-                                        <td><?php echo $price; ?></td>
+                                        <td><?php echo $food_name; ?></td>
+                                        <td><?php echo $price_of_order; ?></td>
                                         <td><?php echo $quantity; ?></td>
                                         <td><?php echo $total; ?></td>
                                         <td><?php echo $order_date; ?></td>
@@ -83,7 +83,7 @@
                                         </td>
 
                                         <td>
-                                            <a href="<?php echo URL; ?>Controller/updateOrder.php?id=<?php echo $id; ?>" class="btn-secondary">Update Order</a>
+                                            <a href="<?php echo SITEURL; ?>Controller/updateOrder.php?id=<?php echo $id; ?>" class="btn-secondary">Update Order</a>
                                         </td>
                                     </tr>
 
