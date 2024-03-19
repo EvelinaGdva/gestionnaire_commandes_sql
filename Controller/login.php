@@ -21,7 +21,7 @@ if (isset($_SESSION["user"])) {
 <body>
     <div class="container login-container">
 
-        <?php
+        <?php        
         if (isset($_POST["login"])) {
             $username = $_POST["username"];
             $password = $_POST["password"];
@@ -35,7 +35,7 @@ if (isset($_SESSION["user"])) {
             $row = $result->fetch_assoc();
                      if ($result->num_rows > 0) {
                 $user = $result->fetch_assoc();
-                if (password_verify($password, $user["password"])) {
+                if (password_verify($password, $user[""])) {
                     session_start();
                     $_SESSION["user"] = $user["id"];
                     header("Location: index.php");

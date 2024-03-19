@@ -1,3 +1,33 @@
+<?php
+session_start();
+if (isset($_POST['send'])) {
+
+  $conn = mysqli_connect("localhost","root","","Restot");
+
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  require_once "../Data/database.php";
+
+  $sql = "SELECT * FROM admin WHERE username = '$username' and password = 'password'";
+  
+  $result = mysqli_query($conn,$sql);
+  while($row = mysqli_fetch_array($result))
+  {
+    $id = $row['id'];
+  }
+
+  if (mysqli_num_rows($result)){
+    
+    $_SESSION['id'] = $id;
+    header("location: ")
+  }
+}
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

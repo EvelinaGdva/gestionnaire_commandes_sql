@@ -11,7 +11,7 @@ function get_user_details($user_id) {
 $sql = "SELECT * FROM user";
 $result = $conn->query($sql);
 
-$sql = "UPDATE user SET user='nouveau_nom_utilisateur' WHERE user_id=1";
+$sql = "UPDATE user SET user ='nouveau_nom_utilisateur' WHERE user_id=1";
 
 if ($conn->query($sql) === TRUE) {
     echo "Détails de l'utilisateur mis à jour avec succès";
