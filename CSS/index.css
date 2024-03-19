@@ -1,195 +1,390 @@
-body {
+
+*{
+  margin: 0;
   padding: 0;
-  margin: 2%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container{
+  width: 80%;
+  margin: 0 auto;
+  padding: 1%;
+}
+.img-responsive{
+  width: 100%;
+}
+.img-curve{
+  border-radius: 15px;
 }
 
-.icon-link i {
-  font-size: 27px; 
+.text-right{
+  text-align: right;
 }
-
-.icon-link a {
-  color: rgb(116, 103, 103); 
-  text-decoration: none; 
-  font-family: Arial;
-} 
-
-.icon-link a:hover {
-  color: rgb(116, 103, 103); 
-}
-
-header li {
-  float: right; 
-  list-style-type: none; 
-  margin-left: 20px; 
-}
-
-
-.wrapper {
-  display: auto;
-  grid-gap: 3em;
-  font-family: arial;
-}
-
-.main-nav ul {
-  display: grid;
-  grid-gap: 4em;
-  list-style: none;
-  grid-template-columns: repeat(4, auto); 
-  margin-left: 15%;
-}
-
-
-.main-nav a {
-  display: block;
-  text-decoration: none;
-  padding: 1em;
+.text-center{
   text-align: center;
-  color: rgb(68, 67, 67);
-  opacity: 0.8;
-  border: 1px solid black;
-  border-radius: 20px;
 }
-
-.main-nav a:hover {
-  background: rgb(233, 233, 233);
-  color: black;
-  border-radius: 20px;
+.text-left{
+  text-align: left;
 }
-
-.main-container {
-  display: grid;
-  background: url(../Images/baguettes.jpg);
-  border-radius: 2em;
-  filter: grayscale(30%);
-  background-size: cover;
-  background-position: center;
-  padding: 16em;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+.text-white{
   color: white;
 }
 
-.btn {
+.clearfix{
+  clear: both;
+  float: none;
+}
+
+a{
+  color: #ff6b81;
   text-decoration: none;
-  color: black;
-  font-size: 14px;
-  background: white;
-  padding: 10px 15px;
-  opacity: 0.6;
-  border-radius: 8em;
+}
+a:hover{
+  color: #ff4757;
 }
 
-.features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.btn{
+  padding: 1%;
+  border: none;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+.btn-primary{
+  background-color: #ff6b81;
+  color: white;
+  cursor: pointer;
+}
+.btn-primary:hover{
+  color: white;
+  background-color: #ff4757;
+}
+h2{
+  color: #2f3542;
+  font-size: 2rem;
+  margin-bottom: 2%;
+}
+h3{
+  font-size: 1.5rem;
+}
+.float-container{
+  position: relative;
+}
+.float-text{
+  position: absolute;
+  bottom: 50px;
+  left: 40%;
+}
+fieldset{
+  border: 1px solid white;
+  margin: 5%;
+  padding: 3%;
+  border-radius: 5px;
+}
+
+.error{
+  padding: 2%;
+  color: red;
+}
+.success{
+  padding: 2%;
+  color: green;
+}
+
+
+/* CSSS for navbar section */
+
+.logo{
+  width: 10%;
+  float: left;
+}
+.menu{
+  line-height: 60px;
+}
+.menu ul{
+  list-style-type: none;
+}
+
+.menu ul li{
+  display: inline;
+  padding: 1%;
+  font-weight: bold;
+}
+
+
+/* CSS for Food SEarch Section */
+
+.food-search{
+  background-image: url(../images/bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 7% 0;
+}
+
+.food-search input[type="search"]{
+  width: 50%;
+  padding: 1%;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+}
+
+
+/* CSS for Categories */
+.categories{
+  padding: 4% 0;
+}
+
+.box-3{
+  width: 28%;
+  float: left;
+  margin: 2%;
+}
+
+
+/* CSS for Food Menu */
+.food-menu{
+  background-color: #ececec;
+  padding: 4% 0;
+}
+.food-menu-box{
+  width: 43%;
+  margin: 1%;
+  padding: 2%;
+  float: left;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.food-menu-img{
+  width: 20%;
+  float: left;
+}
+
+.food-menu-desc{
+  width: 70%;
+  float: left;
+  margin-left: 8%;
+}
+
+.food-price{
+  font-size: 1.2rem;
+  margin: 2% 0;
+}
+.food-detail{
+  font-size: 1rem;
+  color: #747d8c;
+}
+
+
+/* CSS for Social */
+.social ul{
+  list-style-type: none;
+}
+.social ul li{
+  display: inline;
+  padding: 1%;
+}
+
+/* for Order Section */
+.order{
+  width: 50%;
+  margin: 0 auto;
+}
+.input-responsive{
+  width: 96%;
+  padding: 1%;
+  margin-bottom: 3%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+.order-label{
+  margin-bottom: 1%; 
+  font-weight: bold;
+}
+
+
+
+/* CSS for Mobile Size or Smaller Screen */
+
+@media only screen and (max-width:768px){
+  .logo{
+      width: 80%;
+      float: none;
+      margin: 1% auto;
+  }
+
+  .menu ul{
+      text-align: center;
+  }
+
+  .food-search input[type="search"]{
+      width: 90%;
+      padding: 2%;
+      margin-bottom: 3%;
+  }
+
+  .btn{
+      width: 91%;
+      padding: 2%;
+  }
+
+  .food-search{
+      padding: 10% 0;
+  }
+
+  .categories{
+      padding: 20% 0;
+  }
+  h2{
+      margin-bottom: 10%;
+  }
+  .box-3{
+      width: 100%;
+      margin: 4% auto;
+  }
+
+  .food-menu{
+      padding: 20% 0;
+  }
+
+  .food-menu-box{
+      width: 90%;
+      padding: 5%;
+      margin-bottom: 5%;
+  }
+  .social{
+      padding: 5% 0;
+  }
+  .order{
+      width: 100%;
+  }
+}
+
+/* 
+  Author: Vijay Thapa;
+  Theme: Food Order Website Admin;
+  Version: 1.0;
+*/
+
+*{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wrapper{
+  padding: 1%;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.text-center{
   text-align: center;
-  grid-gap: 3em;
 }
 
-.features > .box1,
-.features > .box2,
-.features > .box3 {
-  background: rgb(233, 233, 233);
-  padding: 1em;
-  border-radius: 3em;
+.clearfix{
+  float: none;
+  clear: both;
 }
 
-@media(max-width: 1000px) {
-  .main-container {
-    font-size: 15px;
-    padding: 4em;
-  }
-
-  .btn {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
+.tbl-full{
+  width: 100%;
+}
+.tbl-30{
+  width: 30%;
 }
 
-@media(max-width: 850px) {
-  .main-container {
-    font-size: 13px;
-    padding: 4em;
-  }
-
-  .btn {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
+table tr th{
+  border-bottom: 1px solid black;
+  padding: 1%;
+  text-align: left;
 }
 
-@media(max-width: 730px) {
-  .main-container {
-    font-size: 11px;
-    padding: 4em;
-  }
-
-  .btn {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-
-  .features {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .meal {
-    text-align: center;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1em;
-  }
-
-  .about-remain {
-    display: grid;
-    grid-column: 1/4;
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .web-links {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-column: 2/3;
-  }
+table tr td{
+  padding: 1%;
 }
 
-@media(max-width: 500px) {
-  .main-nav ul {
-    grid-template-columns: repeat(4, auto); /* Ajustement pour les petits écrans */
-  }
-
-  .main-nav a {
-    font-size: 10px;
-  }
-
-  .main-container {
-    font-size: 7px;
-    padding: 4em;
-  }
-
-  .btn {
-    font-size: 8px;
-    padding: 8px 12px;
-  }
-
-  .about > p {
-    font-size: 18px;
-  }
-
-  .about-remain {
-    font-size: 14px;
-    display: grid;
-    grid-gap: 1em;
-    grid-template-columns: repeat(2, 1fr);
-    text-align: center;
-  }
-
-  .web-links {
-    grid-column: 1/4;
-  }
+.btn-primary{
+  background-color: #1e90ff;
+  padding: 1%;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.btn-primary:hover{
+  background-color: #3742fa;
 }
 
-.credit > p {
-  font-size: 9.5px;
+.btn-secondary{
+  background-color: #7bed9f;
+  padding: 1%;
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+.btn-secondary:hover{
+  background-color: #2ed573;
+}
+
+.btn-danger{
+  background-color: #ff6b81;
+  padding: 1%;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+.btn-danger:hover{
+  background-color: #ff4757;
+}
+
+.success{
+  color: #2ed573;
+}
+.error{
+  color: #ff4757;
+}
+
+
+/* CSS for Menu */
+.menu{
+  border-bottom: 1px solid grey;
+}
+.menu ul{
+  list-style-type: none;
+}
+.menu ul li{
+  display: inline;
+  padding: 1%;
+}
+.menu ul li a{
+  text-decoration: none;
+  font-weight: bold;
+  color: #ff6b81;
+}
+.menu ul li a:hover{
+  color: #ff4757;
+}
+
+/* CSS for main-content */
+.main-content{
+  background-color: #f1f2f6;
+  padding: 3% 0;
+}
+
+.col-4{
+  width: 18%;
+  background-color: white;
+  margin: 1%;
+  padding: 2%;
+  float: left;
+}
+
+
+/* CSS for Login */
+.login{
+  border: 1px solid grey;
+  width: 20%;
+  margin: 10% auto;
+  padding: 2%;
 }

@@ -8,12 +8,12 @@
     if($res==true)
     {
         $_SESSION['delete'] = "<div class='success'>Admin Deleted Successfully.</div>";
-        header('location:'.URL.'Controller/adminController.php');
+        header('location:'.SITEURL.'Controller/adminController.php');
     }
     else
     {
         $_SESSION['delete'] = "<div class='error'>Failed to Delete Admin. Try Again Later.</div>";
-        header('location:'.URL.'Controller/adminController.php');
+        header('location:'.SITEURL.'Controller/adminController.php');
     }
 
 ?>

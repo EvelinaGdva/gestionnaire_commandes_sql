@@ -22,13 +22,13 @@
             <div class="menu text-right">
                 <ul>
                     <li>
-                        <a href="<?php echo URL; ?>">Home</a>
+                        <a href="<?php echo SITEURL; ?>">Home</a>
                     </li>
                     <li>
-                        <a href="<?php echo URL; ?>categories.php">Categories</a>
+                        <a href="<?php echo SITEURL; ?>category.php">Categories</a>
                     </li>
                     <li>
-                        <a href="<?php echo URL; ?>foods.php">Foods</a>
+                        <a href="<?php echo SITEURL; ?>food.php">Foods</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>

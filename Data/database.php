@@ -1,4 +1,8 @@
 <?php
+
+// Définition de la constante SITEURL
+define("SITEURL", "http://localhost:8887");
+
 $host = "localhost"; 
 $username = "root";
 $password = "root";
