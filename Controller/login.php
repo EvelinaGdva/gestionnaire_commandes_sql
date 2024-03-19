@@ -21,7 +21,7 @@ if (isset($_SESSION["user"])) {
 <body>
     <div class="container login-container">
 
-        <?php
+        <?php        
         if (isset($_POST["login"])) {
             $username = $_POST["username"];
             $password = $_POST["password"];
@@ -30,14 +30,12 @@ if (isset($_SESSION["user"])) {
             require_once "../Data/database.php";
             $conn = new mysqli($host, $username, $password, $database);
 
-            $sql = "SELECT * FROM user WHERE username = '$username'";
+            $sql = "SELECT * FROM user";
             $result = $conn -> query($sql);
             $row = $result->fetch_assoc();
-            print_r($row);
-            echo "rrrr";
-                        if ($result->num_rows > 0) {
+                     if ($result->num_rows > 0) {
                 $user = $result->fetch_assoc();
-                if (password_verify($password, $user["password"])) {
+                if (password_verify($password, $user[""])) {
                     session_start();
                     $_SESSION["user"] = $user["id"];
                     header("Location: index.php");

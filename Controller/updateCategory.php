@@ -1,0 +1,175 @@
+<?php include('Controller/menu.php'); ?>
+
+<div class="main-content">
+    <div class="wrapper">
+        <h1>Update Category</h1>
+
+        <br><br>
+
+
+        <?php 
+        
+        if(isset($_GET['id']))
+            {
+               
+                $id = $_GET['id'];
+
+                $sql = "SELECT * FROM category WHERE id=$id";
+
+                $res = mysqli_query($conn, $sql);
+
+                $count = mysqli_num_rows($res);
+
+                if($count==1)
+                {
+                    $row = mysqli_fetch_assoc($res);
+                    $category_name = $row['category_name'];
+                    $current_image = $row['image'];
+                    
+                }
+                else
+                {
+                    $_SESSION['no-category-found'] = "<div class='error'>Category not Found.</div>";
+                    header('location:'.URL.'Controller/categoryController.php');
+                }
+
+            }
+            else
+            {
+                header('location:'.URL.'Controller/categoryController.php');
+            }
+        
+        ?>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+
+            <table class="tbl-30">
+                <tr>
+                    <td> Category: </td>
+                    <td>
+                        <input type="text" name="category_name" value="<?php echo $category_name; ?>">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Current Image: </td>
+                    <td>
+                        <?php 
+                            if($current_image != "")
+                            {
+                                ?>
+                                <img src="<?php echo URL; ?>images/category/<?php echo $current_image; ?>" width="150px">
+                                <?php
+                            }
+                            else
+                            {
+                                echo "<div class='error'>Image Not Added.</div>";
+                            }
+                        ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>New Image: </td>
+                    <td>
+                        <input type="file" name="image">
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <input type="hidden" name="current_image" value="<?php echo $current_image; ?>">
+                        <input type="hidden" name="id" value="<?php echo $id; ?>">
+                        <input type="submit" name="submit" value="Update Category" class="btn-secondary">
+                    </td>
+                </tr>
+
+            </table>
+
+        </form>
+
+        <?php 
+        
+            if(isset($_POST['submit']))
+            {
+                $id = $_POST['id'];
+                $category_name = $_POST['category_name'];
+                $current_image = $_POST['current_image'];
+               
+                if(isset($_FILES['image']))
+                {
+                    $image = $_FILES['image'];
+
+                    if($image != "")
+                    {
+                        $ext = end(explode('.', $image_name));
+
+                        $image_name = "Food_Category_".rand(000, 999).'.'.$ext; 
+                        
+
+                        $source_path = $_FILES['image']['tmp_name'];
+
+                        $destination_path = "../images/category/".$image;
+
+                        $upload = move_uploaded_file($source_path, $destination_path);
+
+                        if($upload==false)
+                        {
+                            $_SESSION['upload'] = "<div class='error'>Failed to Upload Image. </div>";
+                            header('location:'.URL.'Controller/categoryController.php');
+                            die();
+                        }
+
+                        if($current_image!="")
+                        {
+                            $remove_path = "../images/category/".$current_image;
+
+                            $remove = unlink($remove_path);
+
+                            if($remove==false)
+                            {
+                                $_SESSION['failed-remove'] = "<div class='error'>Failed to remove current Image.</div>";
+                                header('location:'.URL.'Controller/categoryController.php');
+                                die();
+                            }
+                        }
+                        
+
+                    }
+                    else
+                    {
+                        $image = $current_image;
+                    }
+                }
+                else
+                {
+                    $image = $current_image;
+                }
+
+                $sql2 = "UPDATE category SET 
+                    category_name = '$category_name',
+                    image = '$image',
+                    WHERE id=$id
+                ";
+
+                $res2 = mysqli_query($conn, $sql2);
+
+                if($res2==true)
+                {
+                    $_SESSION['update'] = "<div class='success'>Category Updated Successfully.</div>";
+                    header('location:'.URL.'Controller/categoryController.php');
+                }
+                else
+                {
+                    $_SESSION['update'] = "<div class='error'>Failed to Update Category.</div>";
+                    header('location:'.URL.'Controller/categoryController.php');
+                }
+
+            }
+        
+        ?>
+
+    </div>
+</div>
+
