@@ -2,12 +2,10 @@
 
 <section class="food-search text-center">
     <div class="container">
-        
-        <form action="<?php echo SITEURL; ?>food-search.php" method="POST">
+        <form action="food-search.php" method="POST">
             <input type="search" name="search" placeholder="Search for Food.." required>
             <input type="submit" name="submit" value="Search" class="btn btn-primary">
         </form>
-
     </div>
 </section>
 
@@ -24,7 +22,7 @@
         <h2 class="text-center">Explore Foods</h2>
 
         <?php 
-            $sql = "SELECT * FROM category WHERE active='Yes' AND featured='Yes' LIMIT 3";
+            $sql = "SELECT * FROM category";
             $res = mysqli_query($conn, $sql);
             $count = mysqli_num_rows($res);
 
@@ -34,36 +32,17 @@
                 {
                     $id = $row['id'];
                     $food_name = $row['food_name'];
+                    $food_description = $row['food_description'];
+                    $food_price = $row['food_price'];
                     $image = $row['image'];
-        ?>
                     
-        <a href="<?php echo SITEURL; ?>FoodCategory.php?category_id=<?php echo $id; ?>">
-            <div class="box-3 float-container">
-                <?php 
-                    if($image == "")
-                    {
-                        echo "<div class='error'>Image not Available</div>";
-                    }
-                    else
-                    {
-                ?>
-                <img src="<?php echo SITEURL; ?>images/category/<?php echo $image; ?>" alt="Pizza" class="img-responsive img-curve">
-                <?php
-                    }
-                ?>
-                <h3 class="float-text text-white"><?php echo $food_name; ?></h3>
-            </div>
-        </a>
-
-        <?php
+                    echo "<div class='box-3 float-container'>";
+                    echo "<img src='images/category/Italian.png' alt='Pizza' class='img-responsive img-curve'>";
+                    echo "<h3 class='float-text text-white'>$food_name</h3>";
+                    echo "</div>";
                 }
             }
-            else
-            {
-                echo "<div class='error'>Category not Added.</div>";
-            }
         ?>
-
 
         <div class="clearfix"></div>
     </div>
@@ -75,66 +54,46 @@
         <h2 class="text-center">Food Menu</h2>
 
         <?php 
-        
-        $sql2 = "SELECT * FROM food WHERE active='Yes' AND featured='Yes' LIMIT 6";
+            $sql = "SELECT * FROM category";
+            $res = mysqli_query($conn, $sql);
+            $count = mysqli_num_rows($res);
 
-        $res2 = mysqli_query($conn, $sql2);
-
-        $count2 = mysqli_num_rows($res2);
-
-        if($count2 > 0)
-        {
-            while($row = mysqli_fetch_assoc($res2))
+            if($count > 0)
             {
-                $id = $row['id'];
-                $food_name = $row['food_name'];
-                $food_price = $row['price'];
-                $food_description = $row['description'];
-                $image = $row['image'];
-        ?>
-
-                <div class="food-menu-box">
-                    <div class="food-menu-img">
-                        <?php 
-                            if($image == "")
-                            {
-                                echo "<div class='error'>Image not available.</div>";
-                            }
-                            else
-                            {
-                        ?>
-                        <img src="<?php echo SITEURL; ?>images/food/<?php echo $image; ?>" alt="Pizza" class="img-responsive img-curve">
-                        <?php
-                            }
-                        ?>
-                    </div>
-
-                    <div class="food-menu-desc">
-                        <h4><?php echo $food_name; ?></h4>
-                        <p class="food-price"><?php echo $food_price; ?></p>
-                        <p class="food-detail">
-                            <?php echo $food_description; ?>
-                        </p>
-                        <br>
-
-                        <a href="<?php echo SITEURL; ?>order.php?food_id=<?php echo $id; ?>" class="btn btn-primary">Order Now</a>
-                    </div>
-                </div>
-
-        <?php
+                while($row = mysqli_fetch_assoc($res))
+                {
+                    $id = $row['id'];
+                    $food_name = $row['food_name'];
+                    $food_description = $row['food_description'];
+                    $food_price = $row['food_price'];
+                    $image = $row['image'];
+                    
+                    echo "<div class='food-menu-box'>";
+                    echo "<div class='food-menu-img'>";
+                    if($image == "") {
+                        echo "<div class='error'>Image not available.</div>";
+                    } else {
+                        echo "<img src='images/food/food.jpg' alt='Pizza' class='img-responsive img-curve'>";
+                    }
+                    echo "</div>";
+                    echo "<div class='food-menu-desc'>";
+                    echo "<h4>$food_name</h4>";
+                    echo "<p class='food-price'>$food_price</p>";
+                    echo "<p class='food-detail'>$food_description</p>";
+                    echo "<br>";
+                    echo "<a href='order.php' class='btn btn-primary'>Order Now</a>";
+                    echo "</div>";
+                    echo "</div>";
+                }
             }
-        }
-        else
-        {
-            echo "<div class='error'>Food not available.</div>";
-        }
-        
         ?>
+       
 
         <div class="clearfix"></div>
     </div>
 
+    
     <p class="text-center">
-        <a href="FoodCategory.php">See All Foods</a>
+        <a href="food.php" class="btn btn-primary">Voir tous les plats</a>
     </p>
 </section>

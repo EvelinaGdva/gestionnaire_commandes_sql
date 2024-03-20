@@ -1,4 +1,4 @@
-<?php include('partials/menu.php'); ?>
+<?php include('Gestion/menu.php'); ?>
 
 <div class="main-content">
     <div class="wrapper">
@@ -99,18 +99,17 @@
 
                     if(move_uploaded_file($image_tmp, $destination))
                     {
-                        // Image téléchargée avec succès
                     }
                     else
                     {
                         $_SESSION['upload'] = "<div class='error'>Échec du téléchargement de l'image.</div>";
                         header('location:'.SITEURL.'../Controller/addFood.php');
-                        exit(); // Arrêter l'exécution du script après la redirection
+                        exit(); 
                     }
                 }
                 else
                 {
-                    $new_image = ""; // Aucune image n'a été téléchargée
+                    $new_image = ""; 
                 }
 
                 $sql2 = "INSERT INTO food (food_name, food_description, food_price, image, id_category) 
@@ -125,7 +124,7 @@
                 else
                 {
                     $_SESSION['add'] = "<div class='error'>Échec de l'ajout du plat.</div>";
-                    header('location:'.SITEURL.'../Controller/foodController.php');
+                    header('location:'.SITEURL.'Controller/foodController.php');
                 }
             }
         ?>

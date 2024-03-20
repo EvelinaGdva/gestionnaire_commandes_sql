@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION["user"])) {
-   header("Location: ../Controller/index.php");
+   header("Location: index.php");
    exit; 
 }
 ?>
@@ -20,29 +20,40 @@ if (isset($_SESSION["user"])) {
 
 <body>
     <div class="container login-container">
+        <?php
+        require_once "Data/database.php"; // Inclure le fichier contenant les informations de la base de données
 
-        <?php        
         if (isset($_POST["login"])) {
             $username = $_POST["username"];
             $password = $_POST["password"];
-            
 
-            require_once "../Data/database.php";
-            $conn = new mysqli($host, $username, $password, $database);
+            $conn = new mysqli($host, $db_username, $db_password, $database);
 
-            $sql = "SELECT * FROM user";
-            $result = $conn -> query($sql);
-            $row = $result->fetch_assoc();
-                     if ($result->num_rows > 0) {
+            $sql = "SELECT id, password FROM user WHERE username = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows == 1) {
                 $user = $result->fetch_assoc();
-                if (password_verify($password, $user[""])) {
-                    session_start();
+                if (password_verify($password, $user["password"])) {
                     $_SESSION["user"] = $user["id"];
                     header("Location: index.php");
-                    exit; 
+                    exit;
                 } else {
-                    echo "<div class='alert alert-danger'>Le mot de passe ne correspond pas</div>";
+                    echo "<div class='alert alert-danger'>Le nom d'utilisateur ou le mot de passe est incorrect.</div>";
                 }
+            } else {
+                // Créer automatiquement un compte pour cet utilisateur
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $sql_insert = "INSERT INTO user (username, password) VALUES (?, ?)";
+                $stmt_insert = $conn->prepare($sql_insert);
+                $stmt_insert->bind_param("ss", $username, $hashed_password);
+                $stmt_insert->execute();
+                
+                // Informez l'utilisateur que son compte a été créé avec succès
+                echo "<div class='alert alert-success'>Votre compte a été créé avec succès. Connectez-vous maintenant.</div>";
             }
         }
         ?>

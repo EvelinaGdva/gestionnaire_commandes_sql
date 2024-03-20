@@ -1,45 +1,37 @@
-
-<?php include('partials-front/menu.php'); ?>
+<?php include('menu-front/menu.php'); ?>
 
 <?php 
-    //CHeck whether food id is set or not
-    if(isset($_GET['food_id']))
+session_start();
+require_once "Data/database.php";
+
+if(isset($_GET['food_id']))
+{
+    $food_id = $_GET['food_id'];
+
+    $sql = "SELECT * FROM food WHERE id=$food_id";
+    $res = mysqli_query($conn, $sql);
+    $count = mysqli_num_rows($res);
+    if($count==1)
     {
-        //Get the Food id and details of the selected food
-        $food_id = $_GET['food_id'];
+        $row = mysqli_fetch_assoc($res);
 
-        //Get the DEtails of the SElected Food
-        $sql = "SELECT * FROM tbl_food WHERE id=$food_id";
-        //Execute the Query
-        $res = mysqli_query($conn, $sql);
-        //Count the rows
-        $count = mysqli_num_rows($res);
-        //CHeck whether the data is available or not
-        if($count==1)
-        {
-            //WE Have DAta
-            //GEt the Data from Database
-            $row = mysqli_fetch_assoc($res);
-
-            $title = $row['title'];
-            $price = $row['price'];
-            $image_name = $row['image_name'];
-        }
-        else
-        {
-            //Food not Availabe
-            //REdirect to Home Page
-            header('location:'.SITEURL);
-        }
+        $id = $row['id'];
+        $price_of_order = $row['price_of_order'];
+        $image = $row['image'];
     }
     else
     {
-        //Redirect to homepage
-        header('location:'.SITEURL);
+        header('location:');
+        exit;
     }
+}
+else
+{
+    header('location:');
+    exit;
+}
 ?>
 
-<!-- fOOD sEARCH Section Starts Here -->
 <section class="food-search">
     <div class="container">
         
@@ -50,112 +42,77 @@
                 <legend>Selected Food</legend>
 
                 <div class="food-menu-img">
-                    <?php 
-                    
-                        //CHeck whether the image is available or not
-                        if($image_name=="")
-                        {
-                            //Image not Availabe
-                            echo "<div class='error'>Image not Available.</div>";
-                        }
-                        else
-                        {
-                            //Image is Available
-                            ?>
-                            <img src="<?php echo SITEURL; ?>images/food/<?php echo $image_name; ?>" alt="Chicke Hawain Pizza" class="img-responsive img-curve">
-                            <?php
-                        }
-                    
+                    <?php                     
+                    if($image=="")
+                    {
+                        echo "<div class='error'>Image not Available.</div>";
+                    }
+                    else
+                    {                         
+                        ?>
+                        <img src="images/food/<?php echo $image; ?>" alt="" class="img-responsive img-curve">
+                        <?php
+                    }
                     ?>
-                    
                 </div>
 
                 <div class="food-menu-desc">
-                    <h3><?php echo $title; ?></h3>
-                    <input type="hidden" name="food" value="<?php echo $title; ?>">
-
-                    <p class="food-price">$<?php echo $price; ?></p>
-                    <input type="hidden" name="price" value="<?php echo $price; ?>">
-
+                    <h3><?php echo $row['food_name']; ?></h3>
+                    <input type="hidden" name="food_name" value="<?php echo $row['food_name']; ?>">
+                    <p class="price">$<?php echo $price_of_order; ?></p>
+                    <input type="hidden" name="price" value="<?php echo $price_of_order; ?>">
                     <div class="order-label">Quantity</div>
                     <input type="number" name="qty" class="input-responsive" value="1" required>
-                    
                 </div>
-
             </fieldset>
             
             <fieldset>
                 <legend>Delivery Details</legend>
                 <div class="order-label">Full Name</div>
-                <input type="text" name="full-name" placeholder="E.g. Vijay Thapa" class="input-responsive" required>
-
+                <input type="text" name="full-name" placeholder="" class="input-responsive" required>
                 <div class="order-label">Phone Number</div>
-                <input type="tel" name="contact" placeholder="E.g. 9843xxxxxx" class="input-responsive" required>
-
+                <input type="tel" name="contact" placeholder="" class="input-responsive" required>
                 <div class="order-label">Email</div>
-                <input type="email" name="email" placeholder="E.g. hi@vijaythapa.com" class="input-responsive" required>
-
+                <input type="email" name="email" placeholder="" class="input-responsive" required>
                 <div class="order-label">Address</div>
-                <textarea name="address" rows="10" placeholder="E.g. Street, City, Country" class="input-responsive" required></textarea>
-
+                <textarea name="address" rows="10" placeholder="" class="input-responsive" required></textarea>
                 <input type="submit" name="submit" value="Confirm Order" class="btn btn-primary">
             </fieldset>
-
         </form>
 
         <?php 
-
-            //CHeck whether submit button is clicked or not
+       
             if(isset($_POST['submit']))
             {
-                // Get all the details from the form
-
-                $food = $_POST['food'];
-                $price = $_POST['price'];
-                $qty = $_POST['qty'];
-
-                $total = $price * $qty; // total = price x qty 
-
-                $order_date = date("Y-m-d h:i:sa"); //Order DAte
-
+                $food_name = $_POST['food_name'];
+                $food_price = $_POST['price'];
+                $quantity = $_POST['qty'];
+                $total = intval($food_price) * intval($quantity);
+                $order_date = date("Y-m-d h:i:sa"); //Order Date
                 $status = "Ordered";  // Ordered, On Delivery, Delivered, Cancelled
-
-                $customer_name = $_POST['full-name'];
-                $customer_contact = $_POST['contact'];
-                $customer_email = $_POST['email'];
-                $customer_address = $_POST['address'];
-
-
-                //Save the Order in Databaase
-                //Create SQL to save the data
-                $sql2 = "INSERT INTO order SET 
-                    id_user = '$id_user',
-                    id_restaurant = '$id_restaurant',
-                    food_name = '$food',
-                    price_of_order = $price_of_order,
-                    quantity = $quantity,
-                    total = $total,
-                    order_date = '$order_date',
-                    status = '$status',
-                    
-                ";
-
-                $res2 = mysqli_query($conn, $sql2);
-
-                if($res2==true)
+            
+                // Insertion de la commande dans la base de données
+                $sql = "INSERT INTO `order` (food_name, price, quantity, total, order_date, status) VALUES ('$food_name', $food_price, $quantity, $total, '$order_date', '$status')";
+            
+                $sql = "SELECT * FROM `order`";
+                $res = mysqli_query($conn, $sql);
+            
+                if($res)
                 {
+                    // La commande a été insérée avec succès
                     $_SESSION['order'] = "<div class='success text-center'>Food Ordered Successfully.</div>";
-                    header('location:'.SITEURL);
+                    header('location: index.php'); // Rediriger vers la page d'accueil ou une autre page après avoir passé la commande
+                    exit;
                 }
                 else
                 {
+                    // Erreur lors de l'insertion de la commande
                     $_SESSION['order'] = "<div class='error text-center'>Failed to Order Food.</div>";
-                    header('location:'.SITEURL);
+                    header('location: order.php'); // Rediriger vers la page de commande pour réessayer
+                    exit;
                 }
-
             }
-        
+                    
         ?>
-
     </div>
 </section>
